@@ -1,4 +1,5 @@
 import * as types from './actionTypes'
+import axios from 'axios'
 
 export const loading = (payload) => {
   return {
@@ -19,4 +20,12 @@ export const failure = (payload) => {
     type: types.FAILURE,
     payload,
   }
+}
+
+export const getusers = () => (dispatch) => {
+  dispatch(loading())
+  axios
+    .get('https://jsonplaceholder.typicode.com/users')
+    .then((r) => dispatch(success(r.data)))
+    .catch((error) => dispatch(failure(error.data)))
 }

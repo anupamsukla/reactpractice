@@ -6,39 +6,27 @@ const intialstate = {
   error: '',
 }
 
-const reducer = (state = intialstate, { type, payload }) => {
+export const apireducer = (state = intialstate, { type, payload }) => {
   switch (type) {
-    case REQUEST:
+    case types.REQUEST:
       return {
         ...state,
         loading: true,
       }
-    case SUCCESS:
+    case types.SUCCESS:
       return {
         ...state,
         loading: false,
         error: '',
         data: payload,
       }
-    case FAILURE:
+    case types.FAILURE:
       return {
         ...state,
         loading: false,
         error: payload,
       }
-  }
-}
-
-const getusers = () => {
-  return function (dispatch) {
-    dispatch(request())
-    axios
-      .get('https://jsonplaceholder.typicode.com/users')
-      .then((el) => {
-        dispatch(success(el.data))
-      })
-      .catch((el) => {
-        dispatch(failure(el.message))
-      })
+    default:
+      return state
   }
 }
