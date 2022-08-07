@@ -11,7 +11,8 @@ const todoReducer = (state = initState, { type, payload }) => {
       return { ...state, data: [...temp, payload] }
 
     case types.DELETEITEM:
-      let temp1 = [...data].filter((el, id) => id !== payload)
+      let temp1 = [...data] //.filter((el, id) => id !== payload)
+      temp1.splice(payload, 1)
       return { ...state, data: [...temp1] }
     case types.RESET:
       return { ...initState }
