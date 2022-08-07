@@ -1,0 +1,84 @@
+// npm i react-redux redux redux-thunk
+// creating actions types
+export const ADD = 'ADD'
+export const RESET = 'RESET'
+//intialising actions
+
+import * as types from './actionTypes'
+export const add = (payload) => {
+  return {
+    type: types.ADD,
+    payload,
+  }
+}
+
+
+export const reset = (payload) => {
+  return {
+    type: types.RESET,
+    payload,
+  }
+}
+
+// creating reducer function
+import * as types from './actionTypes'
+const initState = {
+  counter: 0,
+}
+
+export const counterReducer = (state = initState, { type, payload }) => {
+  const { counter } = state
+  switch (type) {
+    case types.ADD:
+      if (counter === 0 && payload === -1) return { ...state }
+      return { ...state, counter: counter + payload }
+    case types.RESET:
+      return {...initState}
+    default:
+      return state
+  }
+}
+
+export default counterReducer
+
+
+
+//creating store and activating devtool extension
+import {
+  applyMiddleware,
+  combineReducers,
+  compose,
+  legacy_createStore,
+} from 'redux'
+import thunk from 'redux-thunk'
+import counterReducer from './counter/reducer'
+
+const rootReducer = combineReducers({ counterdata: counterReducer })
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ || compose
+
+export const store = legacy_createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk)),
+)
+
+//providing access to index
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
+<Provider store={store}></Provider>
+
+//accessing data in component
+import { useDispatch, useSelector } from 'react-redux'
+import { add,reset } from './redux/counter/actions'
+
+function App() {
+  const dispatch = useDispatch()
+  const counter = useSelector((state) => state.counterdata)
+  return (
+    <div className="App">
+      <h1 onClick={() => dispatch(add(-1))}>-</h1>
+      <h1>{counter.counter}</h1>
+      <h1 onClick={() => dispatch(add(-1))}>+</h1>
+      <h1 onClick={() => dispatch(reset())}>RESET</h1>
+    </div>
+  )
+}
