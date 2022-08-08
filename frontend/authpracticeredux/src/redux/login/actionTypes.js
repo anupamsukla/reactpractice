@@ -1,0 +1,4 @@
+export const LOGINLOADING = 'LOGINLOADING'
+export const LOGINSUCESS = 'LOGINSUCCESS'
+export const LOGINFAILURE = 'LOGINFAILURE'
+export const LOGOUT = 'LOGOUT'

@@ -82,3 +82,13 @@ function App() {
     </div>
   )
 }
+
+
+
+export const getusers = () => (dispatch) => {
+  dispatch(loading())
+  axios
+    .get('https://jsonplaceholder.typicode.com/users')
+    .then((r) => dispatch(success(r.data)))
+    .catch((error) => dispatch(failure(error.data)))
+}
