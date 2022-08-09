@@ -3,10 +3,7 @@ const initState = {
   counter: 0,
 }
 
-export const counterReducer = (
-  state = initState,
-  { type, payload } = action,
-) => {
+export const counterReducer = (state = initState, { type, payload }) => {
   const { counter } = state
   switch (type) {
     case types.ADD:

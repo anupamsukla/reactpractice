@@ -8,7 +8,7 @@ import thunk from 'redux-thunk'
 import loginreducer from './login/reducer'
 
 const rootReducer = combineReducers({ logindata: loginreducer })
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ || compose
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 export const store = legacy_createStore(
   rootReducer,

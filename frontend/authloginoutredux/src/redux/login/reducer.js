@@ -25,11 +25,11 @@ const loginreducer = (state = initstate, { type, payload }) => {
       return {
         ...state,
         error: true,
+        loading: false,
       }
     case types.LOGOUT:
       return {
-        ...state,
-        username: false,
+        ...initstate,
       }
 
     default:
